@@ -7,6 +7,24 @@ import (
 	"os"
 )
 
+type problem struct {
+	q string
+	a string
+}
+
+func parseLines(lines [][]string) []problem {
+	ret := make([]problem, len(lines))
+
+	for i, line := range lines {
+		ret[i] = problem{
+			q: line[0],
+			a: line[1],
+		}
+	}
+
+	return ret
+}
+
 func main() {
 	csvFilename := flag.String("csv", "problems.csv", "a csv file in the format of 'question, answer'")
 
@@ -27,7 +45,9 @@ func main() {
 		exit("Failed to parse the provided CSV file")
 	}
 
-	fmt.Println(lines)
+	problems := parseLines(lines)
+
+	fmt.Println(problems)
 }
 
 func exit(msg string) {
